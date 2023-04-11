@@ -1,0 +1,139 @@
+@font-face {
+  font-family: "toutiao"; /* Project id 4008920 */
+  src: url('iconfont.woff2?t=1681199918470') format('woff2'),
+       url('iconfont.woff?t=1681199918470') format('woff'),
+       url('iconfont.ttf?t=1681199918470') format('truetype');
+}
+
+.toutiao {
+  font-family: "toutiao" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.toutiao-shoucang2:before {
+  content: "\e614";
+}
+
+.toutiao-shouye1:before {
+  content: "\e615";
+}
+
+.toutiao-wode1:before {
+  content: "\e616";
+}
+
+.toutiao-wenda:before {
+  content: "\e617";
+}
+
+.toutiao-sousuo:before {
+  content: "\e618";
+}
+
+.toutiao-shouji:before {
+  content: "\e619";
+}
+
+.toutiao-wuwangluo2:before {
+  content: "\e61a";
+}
+
+.toutiao-youjiantou1:before {
+  content: "\e61b";
+}
+
+.toutiao-zuojiantou:before {
+  content: "\e61c";
+}
+
+.toutiao-yanzhengma:before {
+  content: "\e61d";
+}
+
+.toutiao-yuedu:before {
+  content: "\e61e";
+}
+
+.toutiao-zuopin:before {
+  content: "\e61f";
+}
+
+.toutiao-pinglun1:before {
+  content: "\e610";
+}
+
+.toutiao-lishi:before {
+  content: "\e611";
+}
+
+.toutiao-shanchu1:before {
+  content: "\e612";
+}
+
+.toutiao-shipin:before {
+  content: "\e613";
+}
+
+.toutiao-shanchu:before {
+  content: "\e601";
+}
+
+.toutiao-fenxiang1:before {
+  content: "\e602";
+}
+
+.toutiao-youjiantou:before {
+  content: "\e603";
+}
+
+.toutiao-shouye:before {
+  content: "\e604";
+}
+
+.toutiao-shoucang:before {
+  content: "\e60a";
+}
+
+.toutiao-wuwangluo:before {
+  content: "\e60b";
+}
+
+.toutiao-wode:before {
+  content: "\e60c";
+}
+
+.toutiao-pinglun:before {
+  content: "\e60d";
+}
+
+.toutiao-shoucang1:before {
+  content: "\e60e";
+}
+
+.toutiao-wuwangluo1:before {
+  content: "\e60f";
+}
+
+.toutiao-dianzan:before {
+  content: "\e605";
+}
+
+.toutiao-gengduo:before {
+  content: "\e606";
+}
+
+.toutiao-dianzan2:before {
+  content: "\e607";
+}
+
+.toutiao-guanbi:before {
+  content: "\e608";
+}
+
+.toutiao-fenxiang:before {
+  content: "\e609";
+}
+
