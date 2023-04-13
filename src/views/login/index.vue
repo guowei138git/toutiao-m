@@ -1,7 +1,14 @@
 <template>
   <div class="login-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar" title="登录" />
+    <van-nav-bar class="page-nav-bar" title="登录" >
+      <van-icon 
+      slot="left" 
+      name="cross" 
+      @click="$router.back()"
+      />
+    </van-nav-bar>
+
     <!-- /导航栏 -->
 
     <!-- 登录表单  @submit="onSubmit"-->
@@ -176,10 +183,11 @@ export default {
 // 登录页导航
 .page-nav-bar {
   background-color: #3296fa;
-  .van-nav-bar__title {
+  .van-nav-bar__title, .van-icon {
     color: #fff;
   }
 }
+
 .login-container {
   .toutiao {
     // font-size: 37px;

@@ -6,12 +6,6 @@
         <span class="text">登录 / 注册</span>
       </div>
     </div>
-    <div class="header user-info">
-      <!-- 基本信息 -->
-      <div class="base-info"></div>
-      <!-- 统计信息 -->
-      <div class="data-stats"></div>
-    </div>
   </div>
 </template>
 
@@ -56,16 +50,6 @@ export default {
         color: #fff;
       }
     }
-  }
-  .base-info {
-    height: 231px;
-    background-color: pink;
-    padding: 76px 32px 23px;
-    box-sizing: border-box;
-  }
-  .data-stats {
-    height: 130px;
-    background-color: #ccc;
   }
 }
 </style>
