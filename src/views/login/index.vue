@@ -134,9 +134,12 @@ export default {
         // 调后端接口-请求登录
         const {data} = await login(user);
         console.log("登录成功", data);
+        this.$store.commit('setUser', data.data)
         // 提示 success 或者 fail 的时候，会先把其它的 toast 先清除
         this.$toast.success("登录成功");
-        this.$store.commit('setUser', data.data)
+        // 登录成功，跳转回原来页面
+        // 说明：back的方式不严谨，后面讲功能优化的时候再说
+        this.$router.back()
       } catch (err) {
         if (err.response.status === 400) {
           console.log("登录失败", err);
