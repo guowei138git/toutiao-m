@@ -124,7 +124,7 @@ export default {
 <style scoped lang="less">
 .my-container {
   .header {
-    height: 361px;
+    height: 320px;
     background: url("~@/assets/banner.png");
     background-size: cover;
   }
@@ -139,12 +139,12 @@ export default {
       justify-content: center;
       align-items: center;
       .mobile-img {
-        width: 132px;
-        height: 132px;
+        width: 66px;
+        height: 66px;
         margin-bottom: 15px;
       }
       .text {
-        font-size: 28px;
+        font-size: 14px;
         color: #fff;
       }
     }
@@ -163,12 +163,12 @@ export default {
         align-items: center;
         .avatar {
           width: 66px;
-          height: 66;
-          border: 1px solid #fff;
-          margin-right: 16px;
+          height: 66px;
+          border: 4px solid #fff;
+          margin-right: 12px;
         }
         .name {
-          font-size: 16px;
+          font-size: 15px;
           color: #fff;
         }
       }
@@ -176,7 +176,7 @@ export default {
     .data-stats {
       display: flex;
       .data-item {
-        height: 130px;
+        height: 65px;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -184,10 +184,10 @@ export default {
         align-items: center;
         color: #fff;
         .count {
-          font-size: 18px;
+          font-size: 13px;
         }
         .text {
-          font-size: 16px;
+          font-size: 11px;
         }
       }
     }
@@ -195,9 +195,9 @@ export default {
 
   .grid-nav {
     .grid-item {
-      height: 141px;
+      height: 72px;
       i.toutiao {
-        font-size: 22px;
+        font-size: 23px;
       }
       .toutiao-shoucang {
         color: #eb5253;

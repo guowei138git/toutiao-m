@@ -40,3 +40,11 @@ export const sendSms = mobile => {
     //     }
     //   })
     // }
+
+    // 获取用户自己的频道信息
+    export const getUserChannels = () => {
+      return request({
+        method: 'GET',
+        url: '/v1_0/user/channels'
+      })
+    }

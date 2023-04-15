@@ -1,32 +1,35 @@
 <template>
   <div class="home-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar"> 
-      <van-button
-      class="search-btn"
-      slot="title"
-      type="info"
-      size="small"
-      round
-      icon="search">搜索</van-button>
+    <van-nav-bar class="page-nav-bar">
+      <van-button class="search-btn" slot="title" type="info" size="small" round icon="search">搜索</van-button>
     </van-nav-bar>
     <!-- /导航栏 -->
 
     <!-- 频道列表 -->
-      <!--
+    <!--
       通过 v-model 绑定当前激活标签对应的索引值，默认情况下启用第一个标签
       通过 animated 属性可以开启切换标签内容时的转场动画
       通过 swipeable 属性可以开启滑动切换标签页
-     -->
+    -->
     <van-tabs class="channel-tabs" v-model="active" animated swipeable>
-      <van-tab title="标签 1">内容 1</van-tab>
-      <van-tab title="标签 2">内容 2</van-tab>
+      <van-tab 
+      v-for="channel in channels"
+      :key="channel.id"
+      :title="channel.name"> 
+        <!-- 频道的文章列表 -->
+        <ArticleList :channel="channel" />
+        <!-- / 频道的文章列表 -->
+      </van-tab>
+      <!-- <van-tab title="标签 2">内容 2</van-tab>
       <van-tab title="标签 3">内容 3</van-tab>
       <van-tab title="标签 4">内容 4</van-tab>
       <van-tab title="标签 5">内容 5</van-tab>
-      <van-tab title="标签 6">内容 6</van-tab>
+      <van-tab title="标签 6">内容 6</van-tab> -->
+      <!-- 占位 -->
+      <div slot="nav-right" class="placeholder"></div>
       <div slot="nav-right" class="hamburger-btn">
-        <i class="toutiao toutiao-gengduo" > </i>
+        <i class="toutiao toutiao-gengduo"></i>
       </div>
     </van-tabs>
     <!-- / 频道列表 -->
@@ -34,23 +37,45 @@
 </template>
 
 <script>
+import { getUserChannels } from "@/api/user";
+import ArticleList from './components/article-list'
+
+
 export default {
-    name: 'HomeIndex',
-    data () {
-      return {
-        active: 0
+  name: "HomeIndex",
+  data() {
+    return {
+      active: 0,
+      channels: []
+    };
+  },
+  components: {
+    ArticleList
+  },
+  created() {
+    this.loadChannels();
+  },
+  methods: {
+    async loadChannels() {
+      try {
+        const { data } = await getUserChannels();
+        this.channels = data.data.channels
+      } catch (error) {
+        this.$toast('获取用户频道失败')
       }
     }
-}
+  }
+};
 </script>
 
 <style scoped lang="less">
 .home-container {
+  padding-bottom: 50px;
   .van-nav-bar__title {
     // 去除最大宽度的限制
     max-width: unset;
   }
-  .search-btn{
+  .search-btn {
     width: 278px;
     height: 32px;
     background-color: #5babfb;
@@ -71,7 +96,7 @@ export default {
   }
 
   /deep/.channel-tabs {
-    .van-tabs_wrap{
+    .van-tabs_wrap {
       height: 42px;
     }
     .van-tab {
@@ -95,6 +120,12 @@ export default {
       background-color: #3296fa;
     }
 
+    .placeholder {
+      // 0  不参与剩余空间计算
+      flex-shrink: 0;
+      width: 33px;
+      height: 41px;
+    }
     .hamburger-btn {
       position: fixed;
       right: 0;
@@ -105,6 +136,18 @@ export default {
       height: 41px;
       background-color: #fff;
       opacity: 0.902;
+      i.toutiao {
+        font-size: 18px;
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 2px;
+        height: 100%;
+        background-image: url(~@/assets/gradient-gray-line.png);
+        background-size: contain;
+      }
     }
   }
 }
