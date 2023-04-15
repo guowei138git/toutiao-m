@@ -41,23 +41,39 @@ export default {
        try {
             // 1.请求获取数据
            const {data} = await getArticles({
+               // 频道ID  
                channel_id: this.channel.id,
+               // 时间戳timestamp 简单来理解就是请求数据的页码
+               // 例如： 请求第1页数据 -> 当前最新时间戳
+               // 那用于请求当前页之后的数据怎么实现呢？
+               // 用于请求之后数据的 时间戳 会在当前请求结果中返回给你
                timestamp: this.timestamp || Date.now(),
                with_top: 1
            })
            console.log('getArticles--->')
+
+          // 摸拟异常情况 随机 50%  仅用于测试
+          // if(Math.random() > 0.5){
+          //   JSON.parse('diasnngfang')
+          // }
+
            // 2.把数据添加到 list 数组中
            const {results} = data.data
-           this.list.push(...results)
-           console.log(results)
+          // 数组的展开操作符， 它会把数组元素一个一个拿出来
+          // 使用list.push的方法把新数组展开后的元素都追加到 list 中
+          this.list.push(...results)
+          console.log(results)
+
           // 3.设置本次加载中的 loading 状态结束
+          // 本次数据加载结束之后，要把加载状态设置为结束
           this.loading = false
+
           // 4.判断数据是否加载结束
           if (results.length) {
              // 更新获取下一页数据的时间戳
              this.timestamp = data.data.pre_timestamp  
           } else {
-              // 没有数据了
+              // 没有数据了 讲 finished 设置为 true 不再加载更多
               this.finished = true
           } 
 
