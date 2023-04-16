@@ -1,8 +1,13 @@
 <template>
   <div class="home-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar">
-      <van-button class="search-btn" slot="title" type="info" size="small" round icon="search">搜索</van-button>
+    <van-nav-bar class="page-nav-bar" fixed>
+      <van-button class="search-btn" 
+      slot="title" 
+      type="info" 
+      size="small"
+      round 
+      icon="search">搜索</van-button>
     </van-nav-bar>
     <!-- /导航栏 -->
 
@@ -70,6 +75,8 @@ export default {
 
 <style scoped lang="less">
 .home-container {
+  // 内上边距： 搜索栏的高 + 频道列表的高
+  padding-top: 87px;
   padding-bottom: 50px;
   .van-nav-bar__title {
     // 去除最大宽度的限制
@@ -120,6 +127,15 @@ export default {
       background-color: #3296fa;
     }
 
+    .van-tabs__wrap {
+      position: fixed;
+      top: 46px;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      height: 41px;
+    }
+    
     .placeholder {
       // 0  不参与剩余空间计算
       flex-shrink: 0;
