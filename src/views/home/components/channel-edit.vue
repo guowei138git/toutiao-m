@@ -2,10 +2,16 @@
   <div class="channel-edit">
     <van-cell :border="false">
       <div slot="title" class="title-text">我的频道</div>
-      <van-button class="edit-btn" type="danger" plain round size="mini">编辑</van-button>
+      <van-button class="edit-btn" type="danger" plain round size="mini">
+          编辑</van-button>
     </van-cell>
     <van-grid class="my-grid" :gutter="10">
-      <van-grid-item class="grid-item" v-for="value in 8" :key="value" icon="clear" text="文字" />
+      <van-grid-item 
+      class="grid-item" 
+      v-for="(channel, index) in myChannels" 
+      :key="index" 
+      icon="clear" 
+      :text="channel.name" />
     </van-grid>
 
     <!-- 频道推荐 -->
