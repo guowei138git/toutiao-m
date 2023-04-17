@@ -2,16 +2,24 @@
   <div class="channel-edit">
     <van-cell :border="false">
       <div slot="title" class="title-text">我的频道</div>
-      <van-button class="edit-btn" type="danger" plain round size="mini">
-          编辑</van-button>
+      <van-button class="edit-btn" type="danger" plain round size="mini">编辑</van-button>
     </van-cell>
     <van-grid class="my-grid" :gutter="10">
-      <van-grid-item 
-      class="grid-item" 
-      v-for="(channel, index) in myChannels" 
-      :key="index" 
-      icon="clear" 
-      :text="channel.name" />
+      <van-grid-item
+        class="grid-item"
+        v-for="(channel, index) in myChannels"
+        :key="index"
+        icon="clear"
+      >
+        <!-- 
+          v-bind:class 语法
+          一个对象， 对象中的 key 表示 是要作用的 CSS类名
+                    对象中的 value 表示 是要计算出来的布尔值
+                        true: 则作用该类名
+                        false: 则不作用该类名
+        -->
+        <span class="text" :class="{active: index === activeIndex}" slot="text">{{channel.name}}</span>
+      </van-grid-item>
     </van-grid>
 
     <!-- 频道推荐 -->
@@ -29,14 +37,16 @@
 export default {
   name: "ChannelEdit",
   props: {
-      myChannels: {
-          type: Array,
-          required: true
-      }
+    myChannels: {
+      type: Array,
+      required: true
+    },
+    activeIndex: {
+      type: Number,
+      required: true
+    }
   },
-  components: {
-      
-  }
+  components: {}
 };
 </script>
 
@@ -65,7 +75,17 @@ export default {
   .van-grid-item__content {
     // 不折行
     white-space: nowrap;
+    // 背景色
     background-color: #f4f5f6;
+    .van-grid-item__text,
+    .text {
+      font-size: 14px;
+      color: #222;
+      margin-top: 0;
+    }
+    .active {
+      color: red;
+    }
   }
 }
 
@@ -78,9 +98,9 @@ export default {
         margin-right: 3px;
       }
     }
-    .van-grid-item__text {
-      margin-top: 0;
-    }
+    // .van-grid-item__text {
+    //   margin-top: 0;
+    // }
   }
 }
 
