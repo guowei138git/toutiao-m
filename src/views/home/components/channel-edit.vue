@@ -18,7 +18,7 @@
         :key="index"
       >
         <van-icon 
-        v-show="isEdit"
+        v-show="isEdit && !fixChannels.includes(channel.id)"
         slot="icon" 
         name="clear"></van-icon>
         <!-- 
@@ -60,7 +60,9 @@ export default {
       // 所有频道数据
       allChannels: [], 
       // 控制编辑状态的显示
-      isEdit: false
+      isEdit: false,
+      // 固定频道 不允许删除  频道 id = 0
+      fixChannels: [0]
     }
   },
   props: {
