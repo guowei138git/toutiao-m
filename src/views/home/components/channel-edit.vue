@@ -27,7 +27,13 @@
       <div slot="title" class="title-text">频道推荐</div>
     </van-cell>
     <van-grid class="recommend-grid" :gutter="20">
-      <van-grid-item class="grid-item" v-for="value in 8" :key="value" icon="plus" text="推荐内容" />
+      <van-grid-item 
+      class="grid-item" 
+      v-for="(channel, index) in recommondChannels" 
+      :key="index" 
+      icon="plus" 
+      :text="channel.name" 
+      />
     </van-grid>
     <!-- /频道推荐 -->
   </div>
@@ -54,6 +60,25 @@ export default {
     }
   },
   components: {},
+  computed: {
+    // 推荐频道 = 所有频道- 我的频道
+    recommondChannels () {
+      const channels = []
+      this.allChannels.forEach(channel => {
+        // find 遍历数组 找到满足条件的元素项
+        const ret = this.myChannels.find(myChannel => {
+          return myChannel.id === channel.id
+        })
+        // 如果我的频道中部包括该频道项
+        // 则收集到 推荐频道中
+        if (!ret) {
+          channels.push(channel)
+        }
+      })
+      // 把计算结果返回
+      return channels
+    }
+  },
   created () {
     this.loadAllChannels()
   },
