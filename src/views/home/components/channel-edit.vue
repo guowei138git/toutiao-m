@@ -21,7 +21,16 @@
 
 <script>
 export default {
-  name: "ChannelEdit"
+  name: "ChannelEdit",
+  props: {
+      myChannels: {
+          type: Array,
+          required: true
+      }
+  },
+  components: {
+      
+  }
 };
 </script>
 
