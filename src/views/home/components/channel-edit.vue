@@ -15,6 +15,19 @@
           text="文字"
           />
       </van-grid>
+
+      <!-- 频道推荐 -->
+      <van-cell>
+          <div slot="title">频道推荐</div>
+      </van-cell>
+      <van-grid :gutter="20">
+          <van-grid-item
+          v-for="value in 8"
+          :key="value"
+          text="推荐内容"
+          />
+      </van-grid>
+      <!-- /频道推荐 -->
   </div>
 </template>
 
