@@ -33,6 +33,7 @@
       :key="index" 
       icon="plus" 
       :text="channel.name" 
+      @click="onAddChannel(channel)"
       />
     </van-grid>
     <!-- /频道推荐 -->
@@ -102,6 +103,10 @@ export default {
       } catch (error) {
         this.$toast('获取所有频道列表失败')
       }
+    },
+    onAddChannel (channel) {
+      console.log('onAddChannel--->')
+      this.myChannels.push(channel)
     }
   }
 };
