@@ -61,8 +61,20 @@ export default {
   },
   components: {},
   computed: {
-    // 推荐频道 = 所有频道- 我的频道
     recommondChannels () {
+      // 数组的 filter 方法： 遍历数组，把复合条件的元素存储到新数组中
+      return this.allChannels.filter(channel => {
+        //  const channels = []
+
+        // 数组的 find 方法： 遍历数组，把复合条件的第一个元素返回
+        return !this.myChannels.find(myChannel => {
+          return myChannel.id === channel.id
+        })
+        // return channels
+      })
+    },
+    // 推荐频道 = 所有频道- 我的频道
+    recommondChannelsV1 () {
       const channels = []
       this.allChannels.forEach(channel => {
         // find 遍历数组 找到满足条件的元素项
