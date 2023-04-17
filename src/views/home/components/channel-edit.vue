@@ -2,15 +2,25 @@
   <div class="channel-edit">
     <van-cell :border="false">
       <div slot="title" class="title-text">我的频道</div>
-      <van-button class="edit-btn" type="danger" plain round size="mini">编辑</van-button>
+      <van-button 
+      class="edit-btn" 
+      type="danger" 
+      plain 
+      round 
+      size="mini"
+      @click="isEdit = !isEdit"
+      >{{isEdit ? '完成' : '编辑'}}</van-button>
     </van-cell>
     <van-grid class="my-grid" :gutter="10">
       <van-grid-item
         class="grid-item"
         v-for="(channel, index) in myChannels"
         :key="index"
-        icon="clear"
       >
+        <van-icon 
+        v-show="isEdit"
+        slot="icon" 
+        name="clear"></van-icon>
         <!-- 
           v-bind:class 语法
           一个对象， 对象中的 key 表示 是要作用的 CSS类名
@@ -47,7 +57,10 @@ export default {
   name: "ChannelEdit",
   data () {
     return {
-      allChannels: [] // 所有频道数据
+      // 所有频道数据
+      allChannels: [], 
+      // 控制编辑状态的显示
+      isEdit: false
     }
   },
   props: {
@@ -147,6 +160,10 @@ export default {
     }
     .active {
       color: red;
+    }
+    .van-grid-item__icon-wrapper {
+      // 去掉定位 - 父相
+      position: unset;
     }
   }
 }
