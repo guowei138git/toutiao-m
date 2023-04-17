@@ -5,7 +5,7 @@
       <van-button class="edit-btn" type="danger" plain round size="mini">编辑</van-button>
     </van-cell>
     <van-grid class="my-grid" :gutter="10">
-      <van-grid-item class="grid-item" v-for="value in 8" :key="value" text="文字" />
+      <van-grid-item class="grid-item" v-for="value in 8" :key="value" icon="clear" text="文字" />
     </van-grid>
 
     <!-- 频道推荐 -->
@@ -59,12 +59,25 @@ export default {
     .van-grid-item__content {
       flex-direction: row;
       .van-icon-plus {
-          font-size: 14px;
-          margin-right: 3px;
+        font-size: 14px;
+        margin-right: 3px;
       }
     }
     .van-grid-item__text {
-        margin-top: 0;
+      margin-top: 0;
+    }
+  }
+}
+
+/deep/ .my-grid {
+  .grid-item {
+    .van-icon-clear {
+      position: absolute;
+      right: -5px;
+      top: -5px;
+      font-size: 15px;
+      color: #cacaca;
+      z-index: 2;
     }
   }
 }
