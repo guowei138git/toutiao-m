@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { getAllChannels } from "@/api/channel";
+import { getAllChannels, addUserChannel } from "@/api/channel";
 import { mapState } from 'vuex'
 import { setItem } from '@/utils/storage'
 
@@ -120,13 +120,19 @@ export default {
         this.$toast("获取所有频道列表失败");
       }
     },
-    onAddChannel(channel) {
+    async onAddChannel(channel) {
       console.log("onAddChannel--->")
       this.myChannels.push(channel)
       // 数据持久化处理
       if (this.user) {
         // 已登录，把数据放到线上
         console.log('已登录')
+        await addUserChannel({
+          // 频道ID
+          id: channel.id,
+          // 序号
+          seq: this.myChannels.length
+        })
       } else {
         // 未登录， 把数据存储到本地
         console.log('未登录')
