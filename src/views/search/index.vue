@@ -10,6 +10,7 @@
         v-model="searchText"
         show-action
         placeholder="请输入搜索关键词"
+        background="#3296fa"
         @search="onSearch"
         @cancel="onCancel"
       ></van-search>
@@ -20,23 +21,28 @@
 
 <script>
 export default {
-  name: "SearchIndex",
-  data() {
+  name: 'SearchIndex',
+  data () {
     return {
-      searchText: ""
-    };
+      searchText: ''
+    }
   },
   methods: {
-    onSearch(val) {
-      console.log("onSearch:", val);
+    onSearch (val) {
+      console.log('onSearch:', val)
     },
-    onCancel() {
-      console.log("onCancel");
+    onCancel () {
+      console.log('onCancel')
       this.$router.back()
     }
   }
-};
+}
 </script>
 
-<style>
+<style scoped lang="less">
+.search-container {
+  .van-search__action {
+    color: #fff;
+  }
+}
 </style>
