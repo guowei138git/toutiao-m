@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: "SearchSuggest"
+    name: "SearchSuggestion"
 }
 </script>
 
