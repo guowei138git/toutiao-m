@@ -2,13 +2,13 @@
   <div class="channel-edit">
     <van-cell :border="false">
       <div slot="title" class="title-text">我的频道</div>
-      <van-button 
-      class="edit-btn" 
-      type="danger" 
-      plain 
-      round 
-      size="mini"
-      @click="isEdit = !isEdit"
+      <van-button
+        class="edit-btn"
+        type="danger"
+        plain
+        round
+        size="mini"
+        @click="isEdit = !isEdit"
       >{{isEdit ? '完成' : '编辑'}}</van-button>
     </van-cell>
     <van-grid class="my-grid" :gutter="10">
@@ -18,10 +18,7 @@
         :key="index"
         @click="onMyChannelClick(channel, index)"
       >
-        <van-icon 
-        v-show="isEdit && !fixChannels.includes(channel.id)"
-        slot="icon" 
-        name="clear"></van-icon>
+        <van-icon v-show="isEdit && !fixChannels.includes(channel.id)" slot="icon" name="clear"></van-icon>
         <!-- 
           v-bind:class 语法
           一个对象， 对象中的 key 表示 是要作用的 CSS类名
@@ -38,13 +35,13 @@
       <div slot="title" class="title-text">频道推荐</div>
     </van-cell>
     <van-grid class="recommend-grid" :gutter="20">
-      <van-grid-item 
-      class="grid-item" 
-      v-for="(channel, index) in recommondChannels" 
-      :key="index" 
-      icon="plus" 
-      :text="channel.name" 
-      @click="onAddChannel(channel)"
+      <van-grid-item
+        class="grid-item"
+        v-for="(channel, index) in recommondChannels"
+        :key="index"
+        icon="plus"
+        :text="channel.name"
+        @click="onAddChannel(channel)"
       />
     </van-grid>
     <!-- /频道推荐 -->
@@ -52,19 +49,19 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels } from "@/api/channel";
 
 export default {
   name: "ChannelEdit",
-  data () {
+  data() {
     return {
       // 所有频道数据
-      allChannels: [], 
+      allChannels: [],
       // 控制编辑状态的显示
       isEdit: false,
       // 固定频道 不允许删除  频道 id = 0
       fixChannels: [0]
-    }
+    };
   },
   props: {
     myChannels: {
@@ -78,69 +75,74 @@ export default {
   },
   components: {},
   computed: {
-    recommondChannels () {
+    recommondChannels() {
       // 数组的 filter 方法： 遍历数组，把复合条件的元素存储到新数组中
       return this.allChannels.filter(channel => {
         //  const channels = []
 
         // 数组的 find 方法： 遍历数组，把复合条件的第一个元素返回
         return !this.myChannels.find(myChannel => {
-          return myChannel.id === channel.id
-        })
+          return myChannel.id === channel.id;
+        });
         // return channels
-      })
+      });
     },
     // 推荐频道 = 所有频道- 我的频道
-    recommondChannelsV1 () {
-      const channels = []
+    recommondChannelsV1() {
+      const channels = [];
       this.allChannels.forEach(channel => {
         // find 遍历数组 找到满足条件的元素项
         const ret = this.myChannels.find(myChannel => {
-          return myChannel.id === channel.id
-        })
+          return myChannel.id === channel.id;
+        });
         // 如果我的频道中部包括该频道项
         // 则收集到 推荐频道中
         if (!ret) {
-          channels.push(channel)
+          channels.push(channel);
         }
-      })
+      });
       // 把计算结果返回
-      return channels
+      return channels;
     }
   },
-  created () {
-    this.loadAllChannels()
+  created() {
+    this.loadAllChannels();
   },
   methods: {
-    async loadAllChannels(){
+    async loadAllChannels() {
       try {
-        const {data} = await getAllChannels()
-        this.allChannels = data.data.channels
+        const { data } = await getAllChannels();
+        this.allChannels = data.data.channels;
       } catch (error) {
-        this.$toast('获取所有频道列表失败')
+        this.$toast("获取所有频道列表失败");
       }
     },
-    onAddChannel (channel) {
-      console.log('onAddChannel--->')
-      this.myChannels.push(channel)
+    onAddChannel(channel) {
+      console.log("onAddChannel--->");
+      this.myChannels.push(channel);
     },
-    onMyChannelClick (channel, index) {
+    onMyChannelClick(channel, index) {
+      // 频道是否是编辑状态
       if (this.isEdit) {
-
+        // 如果是固定频道，则不删除
+        if (this.fixChannels.icludes(channel.id)) {
+          // 直接 结束执行
+          return
+        }
         if (index <= this.activeIndex) {
           // 如果要删除的索引 小于等于 当前高亮的索引
           // 那就让激活频道的索引 -1
           // true: isChannelEditShow - 显示弹出层
-          this.$emit('update-active', this.activeIndex -1, true)
+          this.$emit("update-active", this.activeIndex - 1, true);
         }
         // 编辑状态，执行删除频道
         // 参数1： 要删除的元素的开始索引（包括）
         // 参数2：要删除的个数，如果不指定，则从参数1开始一直删除
-        this.myChannels.splice(index, 1)
+        this.myChannels.splice(index, 1);
       } else {
         // 非编辑状态， 执行切换频道
         // false: isChannelEditShow - 关闭弹出层
-        this.$emit('update-active', index, false)
+        this.$emit("update-active", index, false);
       }
     }
   }
