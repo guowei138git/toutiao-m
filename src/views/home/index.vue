@@ -95,7 +95,7 @@ export default {
           const { data } = await getUserChannels()
           channels = data.data.channels
         } else {
-          // 未登录，频道是否有本地的频道列表数据
+          // 未登录，判断是否有本地(浏览器缓存中)频道列表数据
           const localChannels = getItem('TOUTIAO_CHANNELS')
           if (localChannels) {
             // 有，拿来使用
