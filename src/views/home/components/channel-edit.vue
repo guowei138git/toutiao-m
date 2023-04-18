@@ -126,6 +126,12 @@ export default {
     },
     onMyChannelClick (channel, index) {
       if (this.isEdit) {
+
+        if (index <= this.activeIndex) {
+          // 如果要删除的索引 小于等于 当前高亮的索引
+          // 那就让激活频道的索引 -1
+          this.$emit('update-active', this.activeIndex -1)
+        }
         // 编辑状态，执行删除频道
         // 参数1： 要删除的元素的开始索引（包括）
         // 参数2：要删除的个数，如果不指定，则从参数1开始一直删除
