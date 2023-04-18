@@ -51,6 +51,7 @@
 <script>
 import { getAllChannels } from "@/api/channel";
 import { mapState } from 'vuex'
+import { setItem } from '@/utils/storage'
 
 export default {
   name: "ChannelEdit",
@@ -129,6 +130,7 @@ export default {
       } else {
         // 未登录， 把数据存储到本地
         console.log('未登录')
+        setItem('TOUTIAO_CHANNELS', this.myChannels)
       }
     },
     onMyChannelClick(channel, index) {
