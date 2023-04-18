@@ -53,6 +53,7 @@
     <ChannelEdit 
     :myChannels="channels"
     :activeIndex="active" 
+    @update-active="onUpdateAcitve"
     />
     </van-popup>
     <!-- / 频道编辑弹出层 -->
@@ -88,6 +89,13 @@ export default {
       } catch (error) {
         this.$toast('获取用户频道失败')
       }
+    },
+    onUpdateAcitve (index) {
+      // console.log('home', index)
+      // 更新激活的频道项
+      this.active = index
+      // 关闭编辑频道弹层
+      this.isChannelEditShow = false
     }
   }
 };
