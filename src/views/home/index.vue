@@ -90,12 +90,13 @@ export default {
         this.$toast('获取用户频道失败')
       }
     },
-    onUpdateAcitve (index) {
+    // ES6语法：参数默认值 - isChannelEditShow的默认值为 true
+    onUpdateAcitve (index, isChannelEditShow = true) {
       // console.log('home', index)
       // 更新激活的频道项
       this.active = index
       // 关闭编辑频道弹层
-      this.isChannelEditShow = false
+      this.isChannelEditShow = isChannelEditShow
     }
   }
 };
