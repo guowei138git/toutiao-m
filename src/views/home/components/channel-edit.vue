@@ -127,6 +127,9 @@ export default {
     onMyChannelClick (channel, index) {
       if (this.isEdit) {
         // 编辑状态，执行删除频道
+        // 参数1： 要删除的元素的开始索引（包括）
+        // 参数2：要删除的个数，如果不指定，则从参数1开始一直删除
+        this.myChannels.splice(index, 1)
       } else {
         // 非编辑状态， 执行切换频道
         this.$emit('update-active', index)
