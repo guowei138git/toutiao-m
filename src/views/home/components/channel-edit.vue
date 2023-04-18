@@ -49,7 +49,11 @@
 </template>
 
 <script>
-import { getAllChannels, addUserChannel } from "@/api/channel";
+import {
+  getAllChannels,
+  addUserChannel,
+  deleteUserChannel
+} from "@/api/channel";
 import { mapState } from "vuex";
 import { setItem } from "@/utils/storage";
 
@@ -148,7 +152,7 @@ export default {
       // 频道是否是编辑状态
       if (this.isEdit) {
         // 如果是固定频道，则不删除
-        if (this.fixChannels.icludes(channel.id)) {
+        if (this.fixChannels.includes(channel.id)) {
           // 直接 结束执行
           return;
         }
@@ -163,7 +167,7 @@ export default {
         // 参数2：要删除的个数，如果不指定，则从参数1开始一直删除
         this.myChannels.splice(index, 1);
         // 处理持久化
-        this.deleteChannel()
+        this.deleteChannel(channel);
       } else {
         // 非编辑状态， 执行切换频道
         // false: isChannelEditShow - 关闭弹出层
@@ -171,12 +175,17 @@ export default {
       }
     },
     // 删除我的频道方法
-    async deleteChannel () {
+    async deleteChannel(channel) {
       if (this.user) {
         // 已登录 - 则调接口更新到线上
+        try {
+          await deleteUserChannel(channel.id);
+        } catch (error) {
+          this.$toast("操作失败，请稍后重试");
+        }
       } else {
         // 未登录 - 删除操作 -本地删除是直接覆盖更新
-        setItem('TOUTIAO_CHANNELS', this.myChannels)
+        setItem("TOUTIAO_CHANNELS", this.myChannels);
       }
     }
   }
