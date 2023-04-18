@@ -162,10 +162,21 @@ export default {
         // 参数1： 要删除的元素的开始索引（包括）
         // 参数2：要删除的个数，如果不指定，则从参数1开始一直删除
         this.myChannels.splice(index, 1);
+        // 处理持久化
+        this.deleteChannel()
       } else {
         // 非编辑状态， 执行切换频道
         // false: isChannelEditShow - 关闭弹出层
         this.$emit("update-active", index, false);
+      }
+    },
+    // 删除我的频道方法
+    async deleteChannel () {
+      if (this.user) {
+        // 已登录 - 则调接口更新到线上
+      } else {
+        // 未登录 - 删除操作 -本地删除是直接覆盖更新
+        setItem('TOUTIAO_CHANNELS', this.myChannels)
       }
     }
   }
