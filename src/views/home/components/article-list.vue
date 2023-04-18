@@ -144,5 +144,6 @@ export default {
   // height: 100%;
   height: 79vh;
   overflow-y: auto;
+  
 }
 </style>
