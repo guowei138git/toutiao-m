@@ -17,17 +17,21 @@
     </form>
     <!-- /搜索栏 -->
 
-    <!-- 搜索历史记录 -->
-    <SearchHistory/>
-    <!-- /搜索历史记录 -->
+    <!-- 搜索结果 -->
+    <SearchResult v-if="isResultShow" />
+    <!-- /搜索结果 -->
 
     <!-- 联想建议 -->
-    <SearchSuggestion/>
+    <SearchSuggestion v-else-if="searchText" />
     <!-- /联想建议 -->
 
-    <!-- 历史记录 -->
-    <SearchResult />
-    <!-- /历史记录 -->
+    <!-- 搜索历史记录 -->
+    <SearchHistory v-else />
+    <!-- /搜索历史记录 -->
+
+  
+
+   
   </div>
 </template>
 
@@ -45,7 +49,10 @@ export default {
   },
   data () {
     return {
-      searchText: ''
+      // 搜索框中的内容
+      searchText: '',
+      // 控制搜索结果的展示
+      isResultShow: false
     }
   },
   methods: {
