@@ -50,8 +50,8 @@
 
 <script>
 import { getAllChannels, addUserChannel } from "@/api/channel";
-import { mapState } from 'vuex'
-import { setItem } from '@/utils/storage'
+import { mapState } from "vuex";
+import { setItem } from "@/utils/storage";
 
 export default {
   name: "ChannelEdit",
@@ -77,7 +77,7 @@ export default {
   },
   components: {},
   computed: {
-    ...mapState(['user']),
+    ...mapState(["user"]),
     recommondChannels() {
       // 数组的 filter 方法： 遍历数组，把复合条件的元素存储到新数组中
       return this.allChannels.filter(channel => {
@@ -121,22 +121,27 @@ export default {
       }
     },
     async onAddChannel(channel) {
-      console.log("onAddChannel--->")
-      this.myChannels.push(channel)
+      console.log("onAddChannel--->");
+      this.myChannels.push(channel);
       // 数据持久化处理
       if (this.user) {
         // 已登录，把数据放到线上
-        console.log('已登录')
-        await addUserChannel({
-          // 频道ID
-          id: channel.id,
-          // 序号
-          seq: this.myChannels.length
-        })
+        console.log("已登录");
+        try {
+          await addUserChannel({
+            // 频道ID
+            id: channel.id,
+            // 序号
+            seq: this.myChannels.length
+          });
+          console.log("保存成功，用户频道");
+        } catch (error) {
+          this.$toast("保存失败，请稍后重试");
+        }
       } else {
         // 未登录， 把数据存储到本地
-        console.log('未登录')
-        setItem('TOUTIAO_CHANNELS', this.myChannels)
+        console.log("未登录");
+        setItem("TOUTIAO_CHANNELS", this.myChannels);
       }
     },
     onMyChannelClick(channel, index) {
@@ -145,7 +150,7 @@ export default {
         // 如果是固定频道，则不删除
         if (this.fixChannels.icludes(channel.id)) {
           // 直接 结束执行
-          return
+          return;
         }
         if (index <= this.activeIndex) {
           // 如果要删除的索引 小于等于 当前高亮的索引
