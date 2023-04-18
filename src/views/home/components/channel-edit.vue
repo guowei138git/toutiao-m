@@ -50,6 +50,7 @@
 
 <script>
 import { getAllChannels } from "@/api/channel";
+import { mapState } from 'vuex'
 
 export default {
   name: "ChannelEdit",
@@ -75,6 +76,7 @@ export default {
   },
   components: {},
   computed: {
+    ...mapState(['user']),
     recommondChannels() {
       // 数组的 filter 方法： 遍历数组，把复合条件的元素存储到新数组中
       return this.allChannels.filter(channel => {
@@ -118,8 +120,16 @@ export default {
       }
     },
     onAddChannel(channel) {
-      console.log("onAddChannel--->");
-      this.myChannels.push(channel);
+      console.log("onAddChannel--->")
+      this.myChannels.push(channel)
+      // 数据持久化处理
+      if (this.user) {
+        // 已登录，把数据放到线上
+        console.log('已登录')
+      } else {
+        // 未登录， 把数据存储到本地
+        console.log('未登录')
+      }
     },
     onMyChannelClick(channel, index) {
       // 频道是否是编辑状态
