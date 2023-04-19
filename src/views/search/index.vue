@@ -13,6 +13,7 @@
         background="#3296fa"
         @search="onSearch"
         @cancel="onCancel"
+        @focus="onFocus"
       ></van-search>
     </form>
     <!-- /搜索栏 -->
@@ -58,10 +59,15 @@ export default {
   methods: {
     onSearch (val) {
       console.log('onSearch:', val)
+      this.isResultShow = true
     },
     onCancel () {
       console.log('onCancel')
       this.$router.back()
+    },
+    onFocus () {
+      console.log('onFocus')
+      this.isResultShow = false
     }
   }
 }
