@@ -1,7 +1,7 @@
 <template>
   <div class="search-container">
     <!-- 搜索栏 -->
-    <form action="/">
+    <form action="/" class="search-form">
       <!--
             Tips: 在 van-search 外层增加 form 标签，且 action 不为空，
             即可在 iOS 输入法中显示搜索按钮
@@ -85,6 +85,13 @@ export default {
 .search-container {
   .van-search__action {
     color: #fff;
+  }
+  .search-form {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
   }
 }
 </style>

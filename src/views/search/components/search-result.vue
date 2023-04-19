@@ -4,7 +4,7 @@
     v-model="loading"
     :finished="finished"
     finished-text="没有等多了"
-    :error="error"
+    :error.sync="error"
     error-text="加载失败，请点击重试"
     @load="onLoad"
     >
