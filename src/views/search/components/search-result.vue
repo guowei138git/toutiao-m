@@ -4,6 +4,8 @@
     v-model="loading"
     :finished="finished"
     finished-text="没有等多了"
+    :error="error"
+    error-text="加载失败，请点击重试"
     @load="onLoad"
     >
       <van-cell
@@ -31,7 +33,8 @@ export default {
         loading: false,
         finished: false,
         page: 1,
-        perPage: 10
+        perPage: 10,
+        error: false
       }
     },
     methods: {
@@ -62,7 +65,11 @@ export default {
          }
 
         } catch (error) {
-          this.$toast('获取搜索结果失败，请稍后重试')
+          // this.$toast('获取搜索结果失败，请稍后重试')
+          // 展示加载失败的提示状态
+          this.error = true
+          // 加载失败了  loading 也要关闭
+          this.loading = false
         }
         
         
