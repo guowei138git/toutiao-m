@@ -60,13 +60,19 @@ export default {
       // 搜索框中的内容
       searchText: '',
       // 控制搜索结果的展示
-      isResultShow: false
+      isResultShow: false,
+      // 搜索的历史记录
+      searchHistories: []
     }
   },
   methods: {
     onSearch (val) {
       console.log('onSearch:', val)
+      // 更新文本框内容
       this.searchText = val
+      // 存储搜索历史记录
+      this.searchHistories.push(val)
+      // 渲染搜索结果
       this.isResultShow = true
     },
     onCancel () {
