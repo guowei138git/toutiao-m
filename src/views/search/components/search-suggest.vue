@@ -1,6 +1,10 @@
 <template>
   <div class="search-suggestion">
-    <van-cell v-for="(text, index) in suggestions" :key="index" icon="search">
+    <van-cell 
+    v-for="(text, index) in suggestions" 
+    :key="index" 
+    icon="search"
+    @click="$emit('search', text)">
       <div slot="title" v-html="highLight(text)"></div>
     </van-cell>
   </div>

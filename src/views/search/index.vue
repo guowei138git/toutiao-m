@@ -26,6 +26,7 @@
     <SearchSuggestion 
     v-else-if="searchText" 
     :searchText="searchText"
+    @search="onSearch"
     />
     <!-- /联想建议 -->
 
@@ -62,6 +63,7 @@ export default {
   methods: {
     onSearch (val) {
       console.log('onSearch:', val)
+      this.searchText = val
       this.isResultShow = true
     },
     onCancel () {
