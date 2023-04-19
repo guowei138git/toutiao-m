@@ -9,7 +9,7 @@ export const getSearchSuggestions = (param) => {
         method: 'GET',
         url: '/v1_0/suggestion',
         params: {
-            param
+            q:param
         }
     })
 }
