@@ -23,7 +23,10 @@
     <!-- /搜索结果 -->
 
     <!-- 联想建议 -->
-    <SearchSuggestion v-else-if="searchText" />
+    <SearchSuggestion 
+    v-else-if="searchText" 
+    :searchText="searchText"
+    />
     <!-- /联想建议 -->
 
     <!-- 搜索历史记录 -->

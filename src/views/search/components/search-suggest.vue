@@ -8,7 +8,25 @@
 
 <script>
 export default {
-  name: "SearchSuggestion"
+  name: "SearchSuggestion",
+  props: {
+    searchText: {
+      type: String,
+      required: true
+    }
+  },
+  watch: {
+    searchText: {
+      // 当 searchText 发送改变的时候，
+      // 就会调用 handler 函数
+      // 注意： handler 函数名称是固定的
+      handler (value) {
+        console.log('watch handler', value)
+      },
+      // 该回调将会在侦听开始之后被立即调用
+      immediate: true
+    }
+  }
 };
 </script>
 
