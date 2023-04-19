@@ -19,7 +19,10 @@
     <!-- /搜索栏 -->
 
     <!-- 搜索结果 -->
-    <SearchResult v-if="isResultShow" />
+    <SearchResult 
+    v-if="isResultShow" 
+    :searchText="searchText"
+    />
     <!-- /搜索结果 -->
 
     <!-- 联想建议 -->
