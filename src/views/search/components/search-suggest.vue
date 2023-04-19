@@ -11,6 +11,9 @@
 <script>
 import { getSearchSuggestions } from '@/api/search'
 
+// 按需加载 好处： 只把使用到的成员打包到结果中
+import { debounce } from 'lodash'
+
 export default {
   name: "SearchSuggestion",
   data () {
@@ -30,10 +33,18 @@ export default {
       // 当 searchText 发送改变的时候，
       // 就会调用 handler 函数
       // 注意： handler 函数名称是固定的
-      handler (value) {
+      handlerV1 (value) {
         console.log('watch handler', value)
         this.loadSearchSuggestions(value)
       },
+      // debounce 函数 - 防抖
+      // 参数1：一个函数
+      // 参数2：延迟时间，单位是毫秒
+      // 返回值：防抖之后的函数
+      handler: debounce(function (value) {
+        console.log(value)
+        this.loadSearchSuggestions(value)
+      }, 200),
       // 该回调将会在侦听开始之后被立即调用
       immediate: true
     }
