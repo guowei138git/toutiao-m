@@ -1,10 +1,24 @@
 <template>
   <!-- <div>文章列表项</div> -->
+  <!-- 
+    Cell 单元格的  to属性和 VueRouter 中的 RouterLink组件中的
+    to属性用法是一样的
+    用法参考链接： https://router.vuejs.org/zh/api/#to
+    方法1：
+    :to="'/article/' + article.art_id"
+    方法2：
+    :to="`/article/${article.art_id}`"
+    方法3：
+    下面的用法即是
+   -->
   <van-cell
     class="article-item"
     :to="{
+    // 根据路由名称来进行调整
     name: 'article',
+    // 传递路由动态参数
     params: {
+      // 属性名： 路由路径中 设计的动态参数名称
       articleId: article.art_id
     }
   }"
