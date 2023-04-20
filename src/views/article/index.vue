@@ -132,6 +132,15 @@ export default {
       margin: 0;
       color: #3a3a3a;
     }
+
+    .user-info {
+      padding: 0 16px;
+      .avatar {
+        width: 35px;
+        height: 35px;
+        margin-right: 9px;
+      }
+    }
   }
 
 
