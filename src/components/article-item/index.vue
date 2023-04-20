@@ -1,6 +1,14 @@
 <template>
   <!-- <div>文章列表项</div> -->
-  <van-cell class="article-item">
+  <van-cell 
+  class="article-item"
+  :to="{
+    name: 'article',
+    params: {
+      articleId: article.art_id
+    }
+  }"
+  >
     <div slot="title" class="title">{{article.title}}</div>
     <div slot="label">
         <div class="cover-wrap">
