@@ -140,6 +140,13 @@ export default {
         height: 35px;
         margin-right: 9px;
       }
+      .van-cell__label {
+        margin-top: 0;
+      }
+      .publish-date {
+        font-size: 12px;
+        color: #b7b7b7;
+      }
     }
   }
 
