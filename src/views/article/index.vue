@@ -36,6 +36,14 @@
         <!-- cell单元格内容 -->
         <div slot="title" class="user-name">黑马头条号</div>
         <div slot="label" class="publish-data">14小时前</div>
+
+        <van-button
+        class="follow-btn"
+        type="info"
+        color="#3296fa"
+        round
+        size="small"
+        icon="plus">关注</van-button>
       </van-cell>
       <!-- /用户信息 -->
 
