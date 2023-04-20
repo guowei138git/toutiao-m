@@ -113,5 +113,27 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="less">
+.article-container {
+  .main-wrap {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 46px;
+    bottom: 44px;
+    overflow-y: scroll;
+    background-color: #fff;
+  }
+
+  .article-detail {
+    .article-title {
+      font-size: 20px;
+      padding: 25px, 16px;
+      margin: 0;
+      color: #3a3a3a;
+    }
+  }
+
+
+}
 </style>
