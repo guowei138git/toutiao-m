@@ -47,6 +47,10 @@
       </van-cell>
       <!-- /用户信息 -->
 
+       <!-- 文章内容 -->
+      <div class="article-content">这是文章内容</div>
+      <van-divider>正文结束</van-divider>
+      <!-- /文章内容 -->
      
     <!-- / 加载完成-文章详情 -->
     </div>
