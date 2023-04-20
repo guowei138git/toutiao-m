@@ -41,6 +41,12 @@ const routes = [
     path: '/search',
     name: 'search',
     component: () => import('@/views/search')
+  },
+  {
+    // 动态路由
+    path: '/article/:articleId',
+    name: 'article',
+    component: () => import('@/views/article')
   }
 ]
 
