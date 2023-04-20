@@ -11,6 +11,7 @@
       <!-- 加载中 -->
       <div class="loading-wrap">
         <van-loading 
+        type="spinner"
         color="#3296fa"
         vertical>加载中...</van-loading>
       </div>
