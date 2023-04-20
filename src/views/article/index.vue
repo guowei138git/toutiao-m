@@ -25,7 +25,17 @@
 
       <!-- 用户信息 -->
       <van-cell class="user-info" center :border="false">
-        cell单元格
+       
+        <van-image 
+        class="avatar"
+        slot="icon"
+        round
+        fit="cover"
+        src="https://img.yzcdn.cn/vant/cat.jpeg"></van-image>
+
+        <!-- cell单元格内容 -->
+        <div slot="title" class="user-name">黑马头条号</div>
+        <div slot="label" class="publish-data">14小时前</div>
       </van-cell>
       <!-- /用户信息 -->
 
