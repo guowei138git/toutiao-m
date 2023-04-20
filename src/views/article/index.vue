@@ -1,4 +1,5 @@
 <template>
+  <!-- article-container-->
   <div class="article-container">
     <!-- 导航栏 -->
     <van-nav-bar 
@@ -75,9 +76,35 @@
     </div>
     <!-- /中间主体区域 -->
 
-
+    <!-- 底部区域 -->
+    <div class="article-bottom">
+      <van-button 
+      class="comment-btn"
+      type="default"
+      round
+      size="small">写评论</van-button>
+      <van-icon
+      name="comment-o"
+      info="123"
+      color="#777"
+      />
+      <van-icon
+      name="star-o"
+      color="#777"
+       />
+      <van-icon 
+       name="good-job-o"
+       color="#777"
+      />
+      <van-icon 
+      name="share"
+      color="#777"
+      />
+    </div>
+    <!-- /底部区域 -->
 
   </div>
+  <!-- /article-container-->
 </template>
 
 <script>
