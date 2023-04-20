@@ -7,6 +7,7 @@
     left-arrow > </van-nav-bar>
     <!-- /导航栏 -->
 
+    <!-- 中间主体区域 -->
     <div class="main-wrap">
       <!-- 加载中 -->
       <div class="loading-wrap">
@@ -52,10 +53,29 @@
       <van-divider>正文结束</van-divider>
       <!-- /文章内容 -->
      
-    <!-- / 加载完成-文章详情 -->
     </div>
+    <!-- / 加载完成-文章详情 -->
+
+    <!-- 加载失败: 404 -->
+    <div class="error-wrap">
+      <van-icon name="failure"></van-icon>
+      <p class="text">该资源不存在或已删除</p>
+    </div>
+    <!-- /加载失败: 404 -->
+
+    <!-- 加载失败：其他未知错误（例如网络原因或服务异常） -->
+    <div class="error-wrap">
+      <van-icon name="failure"></van-icon>
+      <p class="text">内容加载失败</p>
+      <van-button class="retry-btn">点击重试</van-button>
+    </div>
+    <!-- /加载失败：其他未知错误（例如网络原因或服务异常） -->
+
 
     </div>
+    <!-- /中间主体区域 -->
+
+
 
   </div>
 </template>
