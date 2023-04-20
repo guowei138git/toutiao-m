@@ -70,8 +70,21 @@ export default {
       console.log('onSearch:', val)
       // 更新文本框内容
       this.searchText = val
+
       // 存储搜索历史记录
-      this.searchHistories.push(val)
+      // this.searchHistories.push(val)
+
+      // 优化存储搜历史记录S
+      // 要求： 不要有重复历史记录
+      const index = this.searchHistories.indexOf(val)
+      if (index !== -1) {
+        // 备注： indexOf方法 找到了返回 1 找不到返回 -1
+        this.searchHistories.splice(index, 1)
+      }
+      // 要求：最新的排在最前面
+      this.searchHistories.unshift(val)
+       // 优化存储搜历史记录E
+
       // 渲染搜索结果
       this.isResultShow = true
     },
@@ -82,7 +95,8 @@ export default {
     onFocus () {
       console.log('onFocus')
       this.isResultShow = false
-    }
+    },
+    
   }
 }
 </script>
