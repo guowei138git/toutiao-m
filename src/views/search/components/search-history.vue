@@ -19,7 +19,13 @@
 
 <script>
 export default {
-    name: 'SearchHistory'
+    name: 'SearchHistory',
+    props: {
+      searchHistories: {
+        type: Array,
+        required: true
+      }
+    }
 }
 </script>
 

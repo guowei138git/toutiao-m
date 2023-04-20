@@ -34,7 +34,9 @@
     <!-- /联想建议 -->
 
     <!-- 搜索历史记录 -->
-    <SearchHistory v-else />
+    <SearchHistory v-else 
+    :searchHistories="searchHistories"
+    />
     <!-- /搜索历史记录 -->
 
   
