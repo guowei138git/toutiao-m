@@ -17,6 +17,20 @@
       </div>
       <!-- /加载中 -->
 
+    <!-- 加载完成-文章详情 -->
+    <div class="article-detail">
+      <!-- 文章标题 -->
+      <h1 class="article-title">这是文章标题</h1>
+      <!-- /文章标题 -->
+
+      <!-- 用户信息 -->
+      <van-cell class="user-info" center :border="false">
+        cell单元格
+      </van-cell>
+      <!-- /用户信息 -->
+
+    </div>
+
     </div>
 
   </div>
