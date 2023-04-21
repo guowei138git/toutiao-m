@@ -14,7 +14,7 @@
   <van-cell
     class="article-item"
     :to="{
-    // 根据路由名称来进行调整
+    // 根据路由名称来进行 - 跳转
     name: 'article',
     // 传递路由动态参数
     params: {

@@ -16,7 +16,7 @@
       <!-- 加载完成-文章详情 -->
       <div class="article-detail">
         <!-- 文章标题 -->
-        <h1 class="article-title">这是文章标题</h1>
+        <h1 class="article-title">{{ article.title }}</h1>
         <!-- /文章标题 -->
 
         <!-- 用户信息 -->
@@ -26,12 +26,12 @@
             slot="icon"
             round
             fit="cover"
-            src="https://img.yzcdn.cn/vant/cat.jpeg"
+            :src="article.aut_photo"
           ></van-image>
 
           <!-- cell单元格内容 -->
-          <div slot="title" class="user-name">黑马头条号</div>
-          <div slot="label" class="publish-data">14小时前</div>
+          <div slot="title" class="user-name">{{article.aut_name}}</div>
+          <div slot="label" class="publish-data">{{article.pubdate | relativeTime}}</div>
 
           <van-button
             class="follow-btn"
@@ -82,8 +82,37 @@
 </template>
 
 <script>
+import { getArticleById } from '@/api/article'
+
 export default {
-  name: "ArticleIndex"
+  name: "ArticleIndex",
+  data () {
+    return {
+      article: {} // 文章详情
+    }
+  },
+  props: {
+    // articleId: {
+    //   type: [Number, String],
+    //   required: true
+    // }
+  },
+  created () {
+    this.loadArticle()
+  },
+  methods: {
+    async loadArticle () {
+      try {
+        const articleId = this.$route.params.articleId
+        console.log('articleId:', articleId)
+        const { data } = await getArticleById(articleId)
+        console.log('getArticleById resposne:', data)
+        this.article = data.data
+      } catch (error) {
+        console.log('获取数据失败', err)
+      }
+    }
+  }
 };
 </script>
 
