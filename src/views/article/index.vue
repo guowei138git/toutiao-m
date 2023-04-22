@@ -8,13 +8,16 @@
     <!-- 中间主体区域 -->
     <div class="main-wrap">
       <!-- 加载中 -->
-      <div class="loading-wrap">
-        <van-loading type="spinner" color="#3296fa" vertical>加载中...</van-loading>
+      <div v-if="loading" class="loading-wrap">
+        <van-loading
+        type="spinner"
+        color="#3296fa"
+        vertical>加载中...</van-loading>
       </div>
       <!-- /加载中 -->
 
-      <!-- 加载完成-文章详情 -->
-      <div class="article-detail">
+      <!-- 加载完成 -文章详情 -->
+      <div v-else-if="article.title" class="article-detail">
         <!-- 文章标题 -->
         <h1 class="article-title">{{ article.title }}</h1>
         <!-- /文章标题 -->
@@ -51,10 +54,10 @@
         <van-divider>正文结束</van-divider>
         <!-- /文章内容 -->
       </div>
-      <!-- / 加载完成-文章详情 -->
+      <!-- / 加载完成 -文章详情 -->
 
       <!-- 加载失败: 404 -->
-      <div class="error-wrap">
+      <div v-else class="error-wrap">
         <van-icon name="failure"></van-icon>
         <p class="text">该资源不存在或已删除</p>
       </div>
@@ -87,10 +90,11 @@
 import { getArticleById } from '@/api/article'
 
 export default {
-  name: "ArticleIndex",
+  name: 'ArticleIndex',
   data () {
     return {
-      article: {} // 文章详情
+      article: {}, // 文章详情
+      loading: true // 加载中的 loading 状态
     }
   },
   props: {
@@ -110,12 +114,14 @@ export default {
         const { data } = await getArticleById(articleId)
         console.log('getArticleById resposne:', data)
         this.article = data.data
+        // 请求成功， 关闭 Loading
+        this.loading = false
       } catch (error) {
-        console.log('获取数据失败', err)
+        console.log('获取数据失败', error)
       }
     }
   }
-};
+}
 </script>
 
 <style scoped lang="less">
