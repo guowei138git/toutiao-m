@@ -57,14 +57,14 @@
       <!-- / 加载完成 -文章详情 -->
 
       <!-- 加载失败: 404 -->
-      <div v-else class="error-wrap">
+      <div v-else-if="errStatus === 404" class="error-wrap">
         <van-icon name="failure"></van-icon>
         <p class="text">该资源不存在或已删除</p>
       </div>
       <!-- /加载失败: 404 -->
 
       <!-- 加载失败：其他未知错误（例如网络原因或服务异常） -->
-      <div class="error-wrap">
+      <div v-else class="error-wrap">
         <van-icon name="failure"></van-icon>
         <p class="text">内容加载失败</p>
         <van-button class="retry-btn">点击重试</van-button>
@@ -94,7 +94,8 @@ export default {
   data () {
     return {
       article: {}, // 文章详情
-      loading: true // 加载中的 loading 状态
+      loading: true, // 加载中的 loading 状态
+      errStatus: 0 // 失败的状态码
     }
   },
   props: {
@@ -115,10 +116,17 @@ export default {
         console.log('getArticleById resposne:', data)
         this.article = data.data
         // 请求成功， 关闭 Loading
-        this.loading = false
+        // this.loading = false
       } catch (error) {
+        if (error.response && error.response.status === 404) {
+          this.errStatus = 404
+        }
+        // 请求失败， 关闭 loading
+        //  this.loading = false
         console.log('获取数据失败', error)
       }
+      // 无论成功还是失败，都需要关闭 loading
+      this.loading = false
     }
   }
 }
