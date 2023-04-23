@@ -120,9 +120,9 @@ export default {
         const { data } = await getArticleById(articleId)
         console.log('getArticleById resposne:', data)
         // 摸拟加载失败情况 仅用于测试
-        if (Math.random() > 0.5) {
-          JSON.parse('danfsagklhaulkl')
-        }
+        // if (Math.random() > 0.5) {
+        //   JSON.parse('danfsagklhaulkl')
+        // }
         // 摸拟加载失败情况 仅用于测试
         this.article = data.data
         // 请求成功， 关闭 Loading
