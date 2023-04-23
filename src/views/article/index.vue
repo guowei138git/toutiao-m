@@ -67,7 +67,10 @@
       <div v-else class="error-wrap">
         <van-icon name="failure"></van-icon>
         <p class="text">内容加载失败</p>
-        <van-button class="retry-btn">点击重试</van-button>
+        <van-button
+        class="retry-btn"
+        @click="loadArticle"
+        >点击重试</van-button>
       </div>
       <!-- /加载失败：其他未知错误（例如网络原因或服务异常） -->
     </div>
@@ -109,11 +112,18 @@ export default {
   },
   methods: {
     async loadArticle () {
+      // 开启加载中的状态
+      this.loading = true
       try {
         const articleId = this.$route.params.articleId
         console.log('articleId:', articleId)
         const { data } = await getArticleById(articleId)
         console.log('getArticleById resposne:', data)
+        // 摸拟加载失败情况 仅用于测试
+        if (Math.random() > 0.5) {
+          JSON.parse('danfsagklhaulkl')
+        }
+        // 摸拟加载失败情况 仅用于测试
         this.article = data.data
         // 请求成功， 关闭 Loading
         // this.loading = false
