@@ -26,8 +26,15 @@
           <!-- cell单元格内容 -->
           <div slot="title" class="user-name">{{article.aut_name}}</div>
           <div slot="label" class="publish-data">{{article.pubdate | relativeTime}}</div>
-
+          <!-- 关注用户 -->
           <van-button
+          v-if="article.is_followed"
+          class="follow-btn"
+          round
+          size="small"
+          >已关注</van-button>
+          <van-button
+            v-else
             class="follow-btn"
             type="info"
             color="#3296fa"
@@ -35,6 +42,7 @@
             size="small"
             icon="plus"
           >关注</van-button>
+          <!-- /关注用户 -->
         </van-cell>
         <!-- /用户信息 -->
 
@@ -226,8 +234,8 @@ export default {
       }
 
       .follow-btn {
-        width: 85px;
-        height: 29px;
+        width: 170px;
+        height: 58px;
       }
     }
 
