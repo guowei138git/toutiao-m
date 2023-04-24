@@ -9,10 +9,7 @@
     <div class="main-wrap">
       <!-- 加载中 -->
       <div v-if="loading" class="loading-wrap">
-        <van-loading
-        type="spinner"
-        color="#3296fa"
-        vertical>加载中...</van-loading>
+        <van-loading type="spinner" color="#3296fa" vertical>加载中...</van-loading>
       </div>
       <!-- /加载中 -->
 
@@ -24,13 +21,7 @@
 
         <!-- 用户信息 -->
         <van-cell class="user-info" center :border="false">
-          <van-image
-            class="avatar"
-            slot="icon"
-            round
-            fit="cover"
-            :src="article.aut_photo"
-          ></van-image>
+          <van-image class="avatar" slot="icon" round fit="cover" :src="article.aut_photo"></van-image>
 
           <!-- cell单元格内容 -->
           <div slot="title" class="user-name">{{article.aut_name}}</div>
@@ -48,9 +39,7 @@
         <!-- /用户信息 -->
 
         <!-- 文章内容 -->
-        <div
-        class="article-content markdown-body"
-        v-html="article.content">
+        <div class="article-content markdown-body" v-html="article.content" ref="article-content">
           <!-- 这是文章内容..... -->
         </div>
         <van-divider>正文结束</van-divider>
@@ -69,10 +58,7 @@
       <div v-else class="error-wrap">
         <van-icon name="failure"></van-icon>
         <p class="text">内容加载失败</p>
-        <van-button
-        class="retry-btn"
-        @click="loadArticle"
-        >点击重试</van-button>
+        <van-button class="retry-btn" @click="loadArticle">点击重试</van-button>
       </div>
       <!-- /加载失败：其他未知错误（例如网络原因或服务异常） -->
     </div>
@@ -95,11 +81,11 @@
 import { getArticleById } from '@/api/article'
 import { ImagePreview } from 'vant'
 
-ImagePreview([
-  'https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg',
-  'https://fastly.jsdelivr.net/npm/@vant/assets/apple-2.jpeg',
-  'https://img.yzcdn.cn/2.jpg'
-])
+// ImagePreview([
+//   'https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg',
+//   'https://fastly.jsdelivr.net/npm/@vant/assets/apple-2.jpeg',
+//   'https://img.yzcdn.cn/2.jpg'
+// ])
 
 export default {
   name: 'ArticleIndex',
@@ -133,7 +119,17 @@ export default {
         //   JSON.parse('danfsagklhaulkl')
         // }
         // 摸拟加载失败情况 仅用于测试
+
+        // 数据驱动视图 这件事儿 不是立即的
         this.article = data.data
+
+        // 初始化图片点击预览
+        // console.log(this.$refs['article-content'])
+        setTimeout(() => {
+          // console.log(this.$refs['article-content'])
+          this.previewImage()
+        }, 0)
+
         // 请求成功， 关闭 Loading
         // this.loading = false
       } catch (error) {
@@ -146,6 +142,39 @@ export default {
       }
       // 无论成功还是失败，都需要关闭 loading
       this.loading = false
+    },
+    previewImage () {
+      // 得到文章内容的所有 dom
+      const articleContent = this.$refs['article-content']
+      // 得到所有的 img 节点
+      const imgs = articleContent.querySelectorAll('img')
+      console.log(imgs)
+      // 定义一个数组
+      const imagesArr = []
+      // 遍历所有 img 节点
+      imgs.forEach((img, index) => {
+        const imageURl = this.getCaption(img.src, 'url=')
+        console.log('imageURl=', imageURl)
+        imagesArr.push(imageURl)
+        // 给每个img节点注册点击事件
+        img.onclick = () => {
+          // 在 img 点击事件处理函数中  调用 ImagePreview 预览
+          ImagePreview({
+            // 预览的图片地址 数组
+            images: imagesArr,
+            // 起始位置  从 0 开始
+            startPosition: index
+          })
+        }
+      })
+      console.log(imagesArr)
+    },
+    // 截取指定字符后面的内容
+    getCaption (str, subStr) {
+      const index = str.lastIndexOf(subStr)
+      const res = str.substring(index + subStr.length, str.length)
+      console.log(res)
+      return res
     }
   }
 }
@@ -259,12 +288,12 @@ export default {
     background-color: #fff;
 
     .comment-btn {
-    width: 141px;
-    height: 23px;
-    border: 2px solid #eee;
-    font-size: 15px;
-    line-height: 23px;
-    color: #a7a7a7;
+      width: 141px;
+      height: 23px;
+      border: 2px solid #eee;
+      font-size: 15px;
+      line-height: 23px;
+      color: #a7a7a7;
     }
 
     .van-icon {
