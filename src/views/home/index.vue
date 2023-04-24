@@ -2,11 +2,11 @@
   <div class="home-container">
     <!-- 导航栏 -->
     <van-nav-bar class="page-nav-bar" fixed>
-      <van-button class="search-btn" 
-      slot="title" 
-      type="info" 
+      <van-button class="search-btn"
+      slot="title"
+      type="info"
       size="small"
-      round 
+      round
       icon="search"
       to="/search"
       >搜索</van-button>
@@ -20,10 +20,10 @@
       通过 swipeable 属性可以开启滑动切换标签页
     -->
     <van-tabs class="channel-tabs" v-model="active" animated swipeable>
-      <van-tab 
+      <van-tab
       v-for="channel in channels"
       :key="channel.id"
-      :title="channel.name"> 
+      :title="channel.name">
         <!-- 频道的文章列表 -->
         <ArticleList :channel="channel" />
         <!-- / 频道的文章列表 -->
@@ -35,7 +35,7 @@
       <van-tab title="标签 6">内容 6</van-tab> -->
       <!-- 占位 -->
       <div slot="nav-right" class="placeholder"></div>
-      <div slot="nav-right" 
+      <div slot="nav-right"
       class="hamburger-btn"
       @click="isChannelEditShow = true"
       >
@@ -45,16 +45,16 @@
     <!-- / 频道列表 -->
 
     <!-- 频道编辑弹出层 -->
-    <van-popup 
+    <van-popup
     v-model="isChannelEditShow"
     closeable
     close-icon-position="top-left"
     position="bottom"
     :style="{height: '100%'}"
     >
-    <ChannelEdit 
+    <ChannelEdit
     :myChannels="channels"
-    :activeIndex="active" 
+    :activeIndex="active"
     @update-active="onUpdateAcitve"
     />
     </van-popup>
@@ -63,20 +63,20 @@
 </template>
 
 <script>
-import { getUserChannels } from "@/api/user";
+import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list'
 import ChannelEdit from './components/channel-edit'
 import { mapState } from 'vuex'
 import { getItem } from '@/utils/storage'
 
 export default {
-  name: "HomeIndex",
-  data() {
+  name: 'HomeIndex',
+  data () {
     return {
       active: 0,
       channels: [],
-      isChannelEditShow: false,
-    };
+      isChannelEditShow: false
+    }
   },
   components: {
     ArticleList,
@@ -85,11 +85,11 @@ export default {
   computed: {
     ...mapState(['user'])
   },
-  created() {
-    this.loadChannels();
+  created () {
+    this.loadChannels()
   },
   methods: {
-    async loadChannels() {
+    async loadChannels () {
       try {
         let channels = []
         if (this.user) {
@@ -113,9 +113,9 @@ export default {
         this.$toast('获取用户频道失败')
       }
     },
-    async loadChannelsV1() {
+    async loadChannelsV1 () {
       try {
-        const { data } = await getUserChannels();
+        const { data } = await getUserChannels()
         this.channels = data.data.channels
       } catch (error) {
         this.$toast('获取用户频道失败')
@@ -130,26 +130,27 @@ export default {
       this.isChannelEditShow = isChannelEditShow
     }
   }
-};
+}
 </script>
 
 <style scoped lang="less">
 .home-container {
   // 内上边距： 搜索栏的高 + 频道列表的高
-  padding-top: 87px;
-  padding-bottom: 50px;
+  padding-top: 348px;
+  padding-bottom: 200px;
+
   .van-nav-bar__title {
     // 去除最大宽度的限制
     max-width: unset;
   }
   .search-btn {
-    width: 278px;
-    height: 32px;
+    width: 555px;
+    height: 64px;
     background-color: #5babfb;
     border: none;
-    font-size: 14;
+    font-size: 28;
     .van-icon {
-      font-size: 16px;
+      font-size: 32px;
     }
   }
   // padding-top: 87px;
@@ -162,17 +163,18 @@ export default {
     }
   }
 
-  /deep/.channel-tabs {
-    .van-tabs_wrap {
-      height: 42px;
+  /deep/ .channel-tabs {
+    .van-tabs__wrap {
+      height: 84px;
     }
     .van-tab {
-      min-width: 100px;
-      border-right: 2px solid #edeff3;
-      font-size: 15px;
+      border-right: 1px solid #edeff3;
+      min-width: 200px;
+      font-size: 30px;
       color: #777;
     }
-    .van-tab-active {
+
+    .van-tab--active {
       color: #333;
     }
 
@@ -181,9 +183,9 @@ export default {
     }
 
     .van-tabs__line {
-      bottom: 4px;
-      width: 15px !important;
-      height: 3px;
+      bottom: 8px;
+      width: 32px !important;
+      height: 6px;
       background-color: #3296fa;
     }
 
@@ -195,32 +197,33 @@ export default {
       right: 0;
       height: 41px;
     }
-    
+
     .placeholder {
       // 0  不参与剩余空间计算
       flex-shrink: 0;
-      width: 33px;
-      height: 41px;
+      width: 66px;
+      height: 82px;
     }
+    // 面包按钮
     .hamburger-btn {
       position: fixed;
       right: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 33px;
-      height: 41px;
+      width: 66px;
+      height: 82px;
       background-color: #fff;
       opacity: 0.902;
       i.toutiao {
-        font-size: 18px;
+        font-size: 33px;
       }
       &::before {
         content: "";
         position: absolute;
         left: 0;
-        width: 2px;
-        height: 100%;
+        width: 1px;
+        height: 58px;
         background-image: url(~@/assets/gradient-gray-line.png);
         background-size: contain;
       }
