@@ -202,7 +202,13 @@ export default {
           this.article.is_followed = true
         }
       } catch (error) {
-        this.$toast('操作失败，请重试')
+        let message = '操作失败，请重试'
+        if (error.response && error.response.status === '400') {
+          message = '你不能关注你自己'
+        } else if (error.response && error.response.status === '401') {
+          message = '你还未登录'
+        }
+        this.$toast(message)
       }
     }
   }
