@@ -28,10 +28,11 @@
           <div slot="label" class="publish-data">{{article.pubdate | relativeTime}}</div>
           <!-- 关注用户 -->
           <van-button
-          v-if="article.is_followed"
-          class="follow-btn"
-          round
-          size="small"
+            v-if="article.is_followed"
+            class="follow-btn"
+            round
+            size="small"
+            @click="onFollow"
           >已关注</van-button>
           <van-button
             v-else
@@ -41,6 +42,7 @@
             round
             size="small"
             icon="plus"
+            @click="onFollow"
           >关注</van-button>
           <!-- /关注用户 -->
         </van-cell>
@@ -88,6 +90,7 @@
 <script>
 import { getArticleById } from '@/api/article'
 import { ImagePreview } from 'vant'
+import { addFollow, deleteFollow } from '@/api/user'
 
 // ImagePreview([
 //   'https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg',
@@ -183,6 +186,24 @@ export default {
       const res = str.substring(index + subStr.length, str.length)
       console.log(res)
       return res
+    },
+    async onFollow () {
+      const targetId = this.article.aut_id
+      try {
+        if (this.article.is_followed) {
+          // 已关注 -> 取消关注
+          const { data } = await deleteFollow(targetId)
+          console.log('取消关注=>', data)
+          this.article.is_followed = false
+        } else {
+          // 未关注 -> 添加关注
+          const { data } = await addFollow(targetId)
+          console.log('添加关注=>', data)
+          this.article.is_followed = true
+        }
+      } catch (error) {
+        this.$toast('操作失败，请重试')
+      }
     }
   }
 }
