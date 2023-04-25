@@ -50,10 +50,10 @@ export const getUserChannels = () => {
 }
 
 /**
-     * 关注用户
-     * @param targetId - 关注用户的id
-     * @returns data
-     */
+ * 关注用户
+ * @param targetId - 关注用户的id
+ * @returns data
+ */
 export const addFollow = (targetId) => {
   return request({
     method: 'POST',
@@ -61,5 +61,15 @@ export const addFollow = (targetId) => {
     data: {
       target: targetId
     }
+  })
+}
+
+/**
+ * 取消关注用户
+ */
+export const deleteFollow = (targetId) => {
+  return request({
+    method: 'DELETE',
+    url: `/v1_0/user/followings/${targetId}`
   })
 }
