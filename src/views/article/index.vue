@@ -92,7 +92,10 @@
       <van-icon name="comment-o" info="123" color="#777" />
       <!-- 收藏 -->
       <!-- <van-icon name="star-o" color="#777" /> -->
-      <collect-article class="btn-item" />
+      <collect-article
+        class="btn-item"
+        v-model="article.is_collected"
+       />
       <!-- /收藏 -->
       <van-icon name="good-job-o" color="#777" />
       <van-icon name="share" color="#777" />

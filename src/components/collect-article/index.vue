@@ -4,10 +4,16 @@
 
 <script>
 export default {
-  name: 'CollectArticle'
+  name: 'CollectArticle',
+  // 使用v-model 必须使用 value名来接收
+  props: {
+    value: {
+      type: Boolean,
+      required: true
+    }
+  }
 }
 </script>
 
 <style>
-
 </style>
