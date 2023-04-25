@@ -26,8 +26,17 @@
           <!-- cell单元格内容 -->
           <div slot="title" class="user-name">{{article.aut_name}}</div>
           <div slot="label" class="publish-data">{{article.pubdate | relativeTime}}</div>
+
           <!-- 关注用户 -->
-          <van-button
+          <!-- 
+            模板中的 $event 是事件参数
+           -->
+          <follow-user 
+            class="follow-btn"
+            :is-followed="article.is_followed"
+            :user-id="article.aut_id"
+            @update-is_followed="article.is_followed = $event" />
+          <!-- <van-button
             v-if="article.is_followed"
             class="follow-btn"
             round
@@ -45,7 +54,7 @@
             icon="plus"
             :loading="followLoading"
             @click="onFollow"
-          >关注</van-button>
+          >关注</van-button> -->
           <!-- /关注用户 -->
         </van-cell>
         <!-- /用户信息 -->
@@ -90,9 +99,10 @@
 </template>
 
 <script>
-import { getArticleById } from '@/api/article'
-import { ImagePreview } from 'vant'
-import { addFollow, deleteFollow } from '@/api/user'
+import { getArticleById } from "@/api/article";
+import { ImagePreview } from "vant";
+
+import FollowUser from '@/components/follow-user'
 
 // ImagePreview([
 //   'https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg',
@@ -101,14 +111,14 @@ import { addFollow, deleteFollow } from '@/api/user'
 // ])
 
 export default {
-  name: 'ArticleIndex',
-  data () {
+  name: "ArticleIndex",
+  data() {
     return {
       article: {}, // 文章详情
       loading: true, // 加载中的 loading 状态
       errStatus: 0, // 失败的状态码
       followLoading: false // 关注的 loading
-    }
+    };
   },
   props: {
     // articleId: {
@@ -116,18 +126,22 @@ export default {
     //   required: true
     // }
   },
-  created () {
-    this.loadArticle()
+  components: {
+    // FollowUser:FollowUser,
+    FollowUser
+  },
+  created() {
+    this.loadArticle();
   },
   methods: {
-    async loadArticle () {
+    async loadArticle() {
       // 开启加载中的状态
-      this.loading = true
+      this.loading = true;
       try {
-        const articleId = this.$route.params.articleId
-        console.log('articleId:', articleId)
-        const { data } = await getArticleById(articleId)
-        console.log('getArticleById resposne:', data)
+        const articleId = this.$route.params.articleId;
+        console.log("articleId:", articleId);
+        const { data } = await getArticleById(articleId);
+        console.log("getArticleById resposne:", data);
         // 摸拟加载失败情况 仅用于测试
         // if (Math.random() > 0.5) {
         //   JSON.parse('danfsagklhaulkl')
@@ -135,41 +149,41 @@ export default {
         // 摸拟加载失败情况 仅用于测试
 
         // 数据驱动视图 这件事儿 不是立即的
-        this.article = data.data
+        this.article = data.data;
 
         // 初始化图片点击预览
         // console.log(this.$refs['article-content'])
         setTimeout(() => {
           // console.log(this.$refs['article-content'])
-          this.previewImage()
-        }, 0)
+          this.previewImage();
+        }, 0);
 
         // 请求成功， 关闭 Loading
         // this.loading = false
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          this.errStatus = 404
+          this.errStatus = 404;
         }
         // 请求失败， 关闭 loading
         //  this.loading = false
-        console.log('获取数据失败', error)
+        console.log("获取数据失败", error);
       }
       // 无论成功还是失败，都需要关闭 loading
-      this.loading = false
+      this.loading = false;
     },
-    previewImage () {
+    previewImage() {
       // 得到文章内容的所有 dom
-      const articleContent = this.$refs['article-content']
+      const articleContent = this.$refs["article-content"];
       // 得到所有的 img 节点
-      const imgs = articleContent.querySelectorAll('img')
-      console.log(imgs)
+      const imgs = articleContent.querySelectorAll("img");
+      console.log(imgs);
       // 定义一个数组
-      const imagesArr = []
+      const imagesArr = [];
       // 遍历所有 img 节点
       imgs.forEach((img, index) => {
-        const imageURl = this.getCaption(img.src, 'url=')
-        console.log('imageURl=', imageURl)
-        imagesArr.push(imageURl)
+        const imageURl = this.getCaption(img.src, "url=");
+        console.log("imageURl=", imageURl);
+        imagesArr.push(imageURl);
         // 给每个img节点注册点击事件
         img.onclick = () => {
           // 在 img 点击事件处理函数中  调用 ImagePreview 预览
@@ -178,47 +192,21 @@ export default {
             images: imagesArr,
             // 起始位置  从 0 开始
             startPosition: index
-          })
-        }
-      })
-      console.log(imagesArr)
+          });
+        };
+      });
+      console.log(imagesArr);
     },
     // 截取指定字符后面的内容
-    getCaption (str, subStr) {
-      const index = str.lastIndexOf(subStr)
-      const res = str.substring(index + subStr.length, str.length)
-      console.log(res)
-      return res
-    },
-    async onFollow () {
-      this.followLoading = true
-      const targetId = this.article.aut_id
-      try {
-        if (this.article.is_followed) {
-          // 已关注 -> 取消关注
-          const { data } = await deleteFollow(targetId)
-          console.log('取消关注=>', data)
-          this.article.is_followed = false
-        } else {
-          // 未关注 -> 添加关注
-          const { data } = await addFollow(targetId)
-          console.log('添加关注=>', data)
-          this.article.is_followed = true
-        }
-      } catch (error) {
-        let message = '操作失败，请重试'
-        if (error.response && error.response.status === '400') {
-          message = '你不能关注你自己'
-        } else if (error.response && error.response.status === '401') {
-          message = '你还未登录'
-        }
-        this.$toast(message)
-      }
-      // 无论成功或失败都关闭 loading
-      this.followLoading = false
+    getCaption(str, subStr) {
+      const index = str.lastIndexOf(subStr);
+      const res = str.substring(index + subStr.length, str.length);
+      console.log(res);
+      return res;
     }
+   
   }
-}
+};
 </script>
 
 <style scoped lang="less">
