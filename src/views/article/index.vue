@@ -76,6 +76,7 @@
           <collect-article 
             class="btn-item" 
             v-model="article.is_collected" 
+            :article-id="article.art_id"
           />
           <!-- /收藏 -->
           <van-icon name="good-job-o" color="#777" />

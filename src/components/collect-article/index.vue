@@ -19,28 +19,36 @@ export default {
     value: {
       type: Boolean,
       required: true
+    },
+    articleId: {
+      type: [Number, String, Object],
+      required: true
     }
   },
   data() {
     return {
-      loding: false
+      loading: false
     };
   },
   methods: {
     async onCollect() {
-      this.loding = true;
+      this.loading = true;
       try {
-          if (this.value) {
-              // 已收藏 -> 取消收藏
-
-          } else {
-              // 未收藏 -> 添加收藏
-
-          }
+        if (this.value) {
+          // 已收藏 -> 取消收藏
+          await deleteCollect(this.articleId)
+        } else {
+          // 未收藏 -> 添加收藏
+          await addCollect(this.articleId)
+        }
+        // 更新视图
+        this.$emit('input', !this.value)
+        // 弹框提示
+        this.$toast.success(!this.value ? '收藏成功' : '取消收藏')
       } catch (error) {
-          this.$toast.fail('操作失败，请重试')
+        this.$toast.fail("操作失败，请重试");
       }
-      this.loding = false;
+      this.loading = false;
     }
   }
 };
