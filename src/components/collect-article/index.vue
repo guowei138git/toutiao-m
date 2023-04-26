@@ -1,10 +1,14 @@
 <template>
-  <van-icon name="star-o" color="#777" />
+  <van-button 
+  :icon="value ? 'star' : 'star-o'" 
+  :class="{
+        collected: value
+    }" />
 </template>
 
 <script>
 export default {
-  name: 'CollectArticle',
+  name: "CollectArticle",
   // 使用v-model 必须使用 value名来接收
   props: {
     value: {
@@ -12,8 +16,14 @@ export default {
       required: true
     }
   }
-}
+};
 </script>
 
-<style>
+<style lang="less" scoped>
+.collected {
+  .van-icon {
+    color: #ffa500;
+  }
+}
+</style>>
 </style>

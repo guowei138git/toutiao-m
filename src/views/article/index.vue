@@ -66,6 +66,22 @@
         </div>
         <van-divider>正文结束</van-divider>
         <!-- /文章内容 -->
+
+        <!-- 底部区域 -->
+        <div class="article-bottom">
+          <van-button class="comment-btn" type="default" round size="small">写评论</van-button>
+          <van-icon name="comment-o" info="123" color="#777" />
+          <!-- 收藏 -->
+          <!-- <van-icon name="star-o" color="#777" /> -->
+          <collect-article 
+            class="btn-item" 
+            v-model="article.is_collected" 
+          />
+          <!-- /收藏 -->
+          <van-icon name="good-job-o" color="#777" />
+          <van-icon name="share" color="#777" />
+        </div>
+        <!-- /底部区域 -->
       </div>
       <!-- / 加载完成 -文章详情 -->
 
@@ -85,31 +101,15 @@
       <!-- /加载失败：其他未知错误（例如网络原因或服务异常） -->
     </div>
     <!-- /中间主体区域 -->
-
-    <!-- 底部区域 -->
-    <div class="article-bottom">
-      <van-button class="comment-btn" type="default" round size="small">写评论</van-button>
-      <van-icon name="comment-o" info="123" color="#777" />
-      <!-- 收藏 -->
-      <!-- <van-icon name="star-o" color="#777" /> -->
-      <collect-article
-        class="btn-item"
-        v-model="article.is_collected"
-       />
-      <!-- /收藏 -->
-      <van-icon name="good-job-o" color="#777" />
-      <van-icon name="share" color="#777" />
-    </div>
-    <!-- /底部区域 -->
   </div>
   <!-- /article-container-->
 </template>
 
 <script>
-import { getArticleById } from '@/api/article'
-import { ImagePreview } from 'vant'
-import FollowUser from '@/components/follow-user'
-import CollectArticle from '@/components/collect-article'
+import { getArticleById } from "@/api/article";
+import { ImagePreview } from "vant";
+import FollowUser from "@/components/follow-user";
+import CollectArticle from "@/components/collect-article";
 
 // ImagePreview([
 //   'https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg',
@@ -118,14 +118,14 @@ import CollectArticle from '@/components/collect-article'
 // ])
 
 export default {
-  name: 'ArticleIndex',
-  data () {
+  name: "ArticleIndex",
+  data() {
     return {
       article: {}, // 文章详情
       loading: true, // 加载中的 loading 状态
       errStatus: 0, // 失败的状态码
       followLoading: false // 关注的 loading
-    }
+    };
   },
   props: {
     // articleId: {
@@ -138,18 +138,18 @@ export default {
     FollowUser,
     CollectArticle
   },
-  created () {
-    this.loadArticle()
+  created() {
+    this.loadArticle();
   },
   methods: {
-    async loadArticle () {
+    async loadArticle() {
       // 开启加载中的状态
-      this.loading = true
+      this.loading = true;
       try {
-        const articleId = this.$route.params.articleId
-        console.log('articleId:', articleId)
-        const { data } = await getArticleById(articleId)
-        console.log('getArticleById resposne:', data)
+        const articleId = this.$route.params.articleId;
+        console.log("articleId:", articleId);
+        const { data } = await getArticleById(articleId);
+        console.log("getArticleById resposne:", data);
         // 摸拟加载失败情况 仅用于测试
         // if (Math.random() > 0.5) {
         //   JSON.parse('danfsagklhaulkl')
@@ -157,41 +157,41 @@ export default {
         // 摸拟加载失败情况 仅用于测试
 
         // 数据驱动视图 这件事儿 不是立即的
-        this.article = data.data
+        this.article = data.data;
 
         // 初始化图片点击预览
         // console.log(this.$refs['article-content'])
         setTimeout(() => {
           // console.log(this.$refs['article-content'])
-          this.previewImage()
-        }, 0)
+          this.previewImage();
+        }, 0);
 
         // 请求成功， 关闭 Loading
         // this.loading = false
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          this.errStatus = 404
+          this.errStatus = 404;
         }
         // 请求失败， 关闭 loading
         //  this.loading = false
-        console.log('获取数据失败', error)
+        console.log("获取数据失败", error);
       }
       // 无论成功还是失败，都需要关闭 loading
-      this.loading = false
+      this.loading = false;
     },
-    previewImage () {
+    previewImage() {
       // 得到文章内容的所有 dom
-      const articleContent = this.$refs['article-content']
+      const articleContent = this.$refs["article-content"];
       // 得到所有的 img 节点
-      const imgs = articleContent.querySelectorAll('img')
-      console.log(imgs)
+      const imgs = articleContent.querySelectorAll("img");
+      console.log(imgs);
       // 定义一个数组
-      const imagesArr = []
+      const imagesArr = [];
       // 遍历所有 img 节点
       imgs.forEach((img, index) => {
-        const imageURl = this.getCaption(img.src, 'url=')
-        console.log('imageURl=', imageURl)
-        imagesArr.push(imageURl)
+        const imageURl = this.getCaption(img.src, "url=");
+        console.log("imageURl=", imageURl);
+        imagesArr.push(imageURl);
         // 给每个img节点注册点击事件
         img.onclick = () => {
           // 在 img 点击事件处理函数中  调用 ImagePreview 预览
@@ -200,20 +200,20 @@ export default {
             images: imagesArr,
             // 起始位置  从 0 开始
             startPosition: index
-          })
-        }
-      })
-      console.log(imagesArr)
+          });
+        };
+      });
+      console.log(imagesArr);
     },
     // 截取指定字符后面的内容
-    getCaption (str, subStr) {
-      const index = str.lastIndexOf(subStr)
-      const res = str.substring(index + subStr.length, str.length)
-      console.log(res)
-      return res
+    getCaption(str, subStr) {
+      const index = str.lastIndexOf(subStr);
+      const res = str.substring(index + subStr.length, str.length);
+      console.log(res);
+      return res;
     }
   }
-}
+};
 </script>
 
 <style scoped lang="less">
