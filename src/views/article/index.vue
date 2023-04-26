@@ -128,10 +128,11 @@ export default {
     };
   },
   props: {
-    // articleId: {
-    //   type: [Number, String],
-    //   required: true
-    // }
+    // 使用组件Props解耦路由参数
+    articleId: {
+      type: [Number, String],
+      required: true
+    }
   },
   components: {
     // FollowUser:FollowUser,
